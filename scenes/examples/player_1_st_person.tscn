@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cqinr2dfmtoi"]
+
+[ext_resource type="Script" uid="uid://bt6axkrvmh4tq" path="res://scripts/FSM/fsm_template_3d/player/player.gd" id="1_ydot5"]
+[ext_resource type="Script" uid="uid://bnpatgb8ujjh7" path="res://scripts/FSM/fsm_template_3d/state_machine.gd" id="2_pcb8u"]
+[ext_resource type="Script" uid="uid://be1tnwlb1bkxd" path="res://scripts/FSM/fsm_template_3d/states/idle_state.gd" id="3_qnfbt"]
+[ext_resource type="Script" uid="uid://ba5262agr56c7" path="res://scripts/FSM/fsm_template_3d/states/run_state.gd" id="4_jblba"]
+[ext_resource type="Script" uid="uid://cbtxcg2rpcjy7" path="res://scripts/FSM/fsm_template_3d/states/falling_state.gd" id="5_rq7do"]
+[ext_resource type="Script" uid="uid://c1nq2upf4oeci" path="res://scripts/FSM/fsm_template_3d/states/jump_state.gd" id="6_cjkfy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3owqy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3owqy"]
+
+[node name="Player1stPerson" type="CharacterBody3D" unique_id=1006121003 node_paths=PackedStringArray("camera", "pivot")]
+script = ExtResource("1_ydot5")
+camera = NodePath("Pivot/Camera3D")
+pivot = NodePath("Pivot")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=180570839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.67761505, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Pivot" unique_id=2055698800]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=271390827]
+shape = SubResource("CapsuleShape3D_3owqy")
+
+[node name="StateMachine" type="Node" parent="." unique_id=2118970683 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_pcb8u")
+initial_state = NodePath("IdleState")
+metadata/_custom_type_script = "uid://bnpatgb8ujjh7"
+
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=953801429]
+script = ExtResource("3_qnfbt")
+metadata/_custom_type_script = "uid://be1tnwlb1bkxd"
+
+[node name="RunState" type="Node" parent="StateMachine" unique_id=915602614]
+script = ExtResource("4_jblba")
+metadata/_custom_type_script = "uid://ba5262agr56c7"
+
+[node name="FallingState" type="Node" parent="StateMachine" unique_id=1541040583]
+script = ExtResource("5_rq7do")
+metadata/_custom_type_script = "uid://cbtxcg2rpcjy7"
+
+[node name="JumpState" type="Node" parent="StateMachine" unique_id=2082669501]
+script = ExtResource("6_cjkfy")
+metadata/_custom_type_script = "uid://c1nq2upf4oeci"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1697103398]
+mesh = SubResource("CapsuleMesh_3owqy")
