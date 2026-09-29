@@ -46,5 +46,3 @@ func change_state(new_state_name: String) -> void:
 	if current_state:
 		current_state.enter()
 
-#func play_state_animation(anim_name: StringName) -> void:
-	#pass
